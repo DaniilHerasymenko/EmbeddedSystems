@@ -1,0 +1,8 @@
+Debug
+Release
+build/
+*.elf.*
+.settings
+.mxproject
+*.launch
+.vscode
