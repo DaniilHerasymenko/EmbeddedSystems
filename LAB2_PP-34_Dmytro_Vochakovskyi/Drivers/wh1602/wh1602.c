@@ -178,43 +178,43 @@ void lcd_print_string(const char* str)
 		lcd_print_char(*str++);
 	}
 }
-//
-//void lcd_move_to(uint8_t x, uint8_t y)
-//{
-//	uint8_t py = 0xFF;
-//
-//    if (x > 15 || y > 1)
-//    {
-//        return;
-//    }
-//
-//	switch (y)
-//	{
-//        case 0:
-//        {
-//            py = 0;
-//            break;
-//        }
-//
-//        case 1:
-//        {
-//            py = 0x40;
-//            break;
-//        }
-//
-//        default:
-//        {
-//            break;
-//        }
-//	}
-//
-//    if (py != 0xFF)
-//    {
-//        py += x;
-//        py |= 0x80;
-//        lcd_write_command(py);
-//    }
-//}
+
+void lcd_move_to(uint8_t x, uint8_t y)
+{
+	uint8_t py = 0xFF;
+
+    if (x > 15 || y > 1)
+    {
+        return;
+    }
+
+	switch (y)
+	{
+        case 0:
+        {
+            py = 0;
+            break;
+        }
+
+        case 1:
+        {
+            py = 0x40;
+            break;
+        }
+
+        default:
+        {
+            break;
+        }
+	}
+
+    if (py != 0xFF)
+    {
+        py += x;
+        py |= 0x80;
+        lcd_write_command(py);
+    }
+}
 //
 //void lcd_print_char_at(char c, uint8_t x, uint8_t y)
 //{
