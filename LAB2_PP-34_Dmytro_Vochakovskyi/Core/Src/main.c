@@ -132,6 +132,15 @@ int main(void)
   LCD_Clear();
   LCD_SendString("authors", 7);
 
+  /*
+  LCD_Init();
+  LCD_SendChar('1');
+  LCD_SendChar('.');
+  LCD_SendString("NAME SURNAME", 12);
+  HAL_Delay(5000);
+  LCD_Clear();
+	*/
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -145,6 +154,42 @@ int main(void)
 	  }
   }
   /* USER CODE END WHILE */
+  while (1)
+  {
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
+	    int k = 0;
+	    LCD_Init();
+
+	    if((HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)) k++;
+
+	    if(k == 0)
+	    {
+	      LCD_Clear();
+	      LCD_SendString("authors", 7);
+	    }
+
+	    if(k == 1)
+	    {
+	     LCD_Clear();
+	     LCD_SendString("Dmytro Vochakovskyi", 19);
+	    }
+
+	    if(k == 2)
+	    {
+	      LCD_Clear();
+	      LCD_SendString("Daniil Herasymenko", 18);
+	    }
+
+	    if(k == 3)
+	    {
+	      LCD_Clear();
+	      LCD_SendString("Nazar Pyrtko", 12);
+	    }
+
+  }
+
   /* USER CODE END 3 */
 }
 

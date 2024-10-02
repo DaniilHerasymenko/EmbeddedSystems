@@ -36,6 +36,7 @@ void LCD_SendChar(char ch)
  */
 void LCD_SendString(char *str, uint8_t size)
 {
+
 //    for (uint8_t i = 0; i < size; i++)
 //    {
 //    	lcd_print_char(str[i]);
@@ -62,6 +63,30 @@ void LCD_SendString(char *str, uint8_t size)
 //	      }
 //
 //	    }
+	uint8_t x = 0;
+	uint8_t y = 0;
+
+    for (uint8_t i = 0; i < size; i++)
+    {
+    	lcd_move_to(x, y);
+    	lcd_print_char(str[i]);
+
+    	x++;
+
+    	if (x > 15) {
+    		x = 0;
+    	    y++;
+
+
+    	    if (y > 1) {
+    	    	break;
+    	    }
+    	}
+
+    }
+
+
+	//lcd_print_string(str);
 }
 
 /**
