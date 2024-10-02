@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include <string.h>
+#include "LCD.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -87,6 +89,48 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+  char* authors[] = {
+      "Dmytro Vochakovskyi",
+      "Daniil Herasymenko",
+      "Nazar Pyrtko"
+  };
+
+  int index = 			0;
+  int prevClick = 		0;
+  int currClick = 		0;
+  int numOfAuthors = 	sizeof(authors) / sizeof(authors[0]);
+
+  void LCD_SendStringInTwolines(char* str, int length) {
+      int maxLength = 16;
+      LCD_Clear();
+
+      if (length <= maxLength) {
+          LCD_SendString(str, length);
+      } else {
+          LCD_SendString(str, maxLength);
+    	  lcd_move_to(0, 1);
+          LCD_SendString(str + maxLength, length - maxLength);
+          HAL_Delay(500);
+      }
+  }
+
+  void LCD_function() {
+	  LCD_Clear();
+	  if (index < numOfAuthors){
+		 LCD_SendStringInTwolines(authors[index], strlen(authors[index]));
+		 index++;
+	  }
+	  else{
+		index = 0;
+	    LCD_SendStringInTwolines("authors", 7);
+	  }
+	  prevClick = currClick;
+  }
+
+  LCD_Init();
+  HAL_Delay(500);
+  LCD_Clear();
+  LCD_SendString("authors", 7);
 
   /*
   LCD_Init();
@@ -101,6 +145,15 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  while (1) {
+	  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET){
+	  		currClick = HAL_GetTick();
+	  		if (currClick - prevClick > 100) {
+	  			LCD_function();
+	  		}
+	  }
+  }
+  /* USER CODE END WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
@@ -136,6 +189,7 @@ int main(void)
 	    }
 
   }
+
   /* USER CODE END 3 */
 }
 

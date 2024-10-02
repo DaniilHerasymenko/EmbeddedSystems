@@ -215,6 +215,12 @@ void lcd_move_to(uint8_t x, uint8_t y)
         lcd_write_command(py);
     }
 }
+
+void lcd_print_char_at(char c, uint8_t x, uint8_t y)
+{
+	lcd_move_to(x, y);
+	lcd_print_char(c);
+}
 //
 //void lcd_print_char_at(char c, uint8_t x, uint8_t y)
 //{
