@@ -31,8 +31,8 @@
 
 void lcd_print_char(char c);
 void lcd_print_string(const char* str);
-//void lcd_move_to(uint8_t x, uint8_t y);
-//void lcd_print_char_at(char c, uint8_t x, uint8_t y);
+void lcd_move_to(uint8_t x, uint8_t y);
+void lcd_print_char_at(char c, uint8_t x, uint8_t y);
 //void lcd_print_string_at(const char* str, uint8_t x, uint8_t y);
 void lcd_clear(void);
 void lcd_init(void);

@@ -92,7 +92,8 @@ int main(void)
   char* authors[] = {
       "Dmytro Vochakovskyi",
       "Daniil Herasymenko",
-      "Nazar Pyrtko"
+      "Nazar Pyrtko",
+	  "authors"
   };
 
   int index = 			0;
@@ -100,31 +101,16 @@ int main(void)
   int currClick = 		0;
   int numOfAuthors = 	sizeof(authors) / sizeof(authors[0]);
 
-  void LCD_SendStringInTwolines(char* str, int length) {
-      int maxLength = 16;
-      LCD_Clear();
-
-      if (length <= maxLength) {
-          LCD_SendString(str, length);
-      } else {
-          LCD_SendString(str, maxLength);
-    	  lcd_move_to(0, 1);
-          LCD_SendString(str + maxLength, length - maxLength);
-          HAL_Delay(500);
-      }
-  }
-
   void LCD_function() {
-	  LCD_Clear();
-	  if (index < numOfAuthors){
-		 LCD_SendStringInTwolines(authors[index], strlen(authors[index]));
-		 index++;
-	  }
-	  else{
-		index = 0;
-	    LCD_SendStringInTwolines("authors", 7);
-	  }
-	  prevClick = currClick;
+      LCD_Clear();
+      if (index < numOfAuthors) {
+          LCD_SendString(authors[index], strlen(authors[index]));
+          HAL_Delay(300);
+          index++;
+      } else {
+          index = 0;
+      }
+      prevClick = currClick;
   }
 
   LCD_Init();
@@ -132,20 +118,12 @@ int main(void)
   LCD_Clear();
   LCD_SendString("authors", 7);
 
-  /*
-  LCD_Init();
-  LCD_SendChar('1');
-  LCD_SendChar('.');
-  LCD_SendString("NAME SURNAME", 12);
-  HAL_Delay(5000);
-  LCD_Clear();
-	*/
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1) {
+
 	  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET){
 	  		currClick = HAL_GetTick();
 	  		if (currClick - prevClick > 100) {
@@ -154,41 +132,7 @@ int main(void)
 	  }
   }
   /* USER CODE END WHILE */
-  while (1)
-  {
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-	    int k = 0;
-	    LCD_Init();
-
-	    if((HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)) k++;
-
-	    if(k == 0)
-	    {
-	      LCD_Clear();
-	      LCD_SendString("authors", 7);
-	    }
-
-	    if(k == 1)
-	    {
-	     LCD_Clear();
-	     LCD_SendString("Dmytro Vochakovskyi", 19);
-	    }
-
-	    if(k == 2)
-	    {
-	      LCD_Clear();
-	      LCD_SendString("Daniil Herasymenko", 18);
-	    }
-
-	    if(k == 3)
-	    {
-	      LCD_Clear();
-	      LCD_SendString("Nazar Pyrtko", 12);
-	    }
-
-  }
+  /* USER CODE BEGIN 3 */
 
   /* USER CODE END 3 */
 }
