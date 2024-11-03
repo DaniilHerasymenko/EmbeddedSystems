@@ -2,6 +2,9 @@
 CAD.formats=
 CAD.pinconfig=
 CAD.provider=
+
+FREERTOS.BinarySemaphores01=LEDBinarySemaphore,Dynamic,NULL,Available
+FREERTOS.IPParameters=Tasks01,configUSE_NEWLIB_REENTRANT,BinarySemaphores01
 FREERTOS.IPParameters=Tasks01,configUSE_NEWLIB_REENTRANT
 FREERTOS.Tasks01=defaultTask,24,128,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL
 FREERTOS.configUSE_NEWLIB_REENTRANT=1
@@ -347,4 +350,6 @@ VP_SYS_VS_tim1.Mode=TIM1
 VP_SYS_VS_tim1.Signal=SYS_VS_tim1
 board=STM32F407G-DISC1
 boardIOC=true
+rtos.0.ip=FREERTOS
+isbadioc=true
 isbadioc=false
