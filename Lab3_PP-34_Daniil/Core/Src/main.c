@@ -42,6 +42,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+
 UART_HandleTypeDef uart3;
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -83,6 +84,9 @@ const osSemaphoreAttr_t LEDBinarySemaphore_attributes = {
 /* USER CODE BEGIN PV */
 int16_t currentClick = 0;
 int16_t prevClick = 0;
+
+/* USER CODE BEGIN PV */
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,6 +98,8 @@ void StartBlueLED(void *argument);
 void StartRedLED(void *argument);
 void StartOrangeLED(void *argument);
 void StartGreenLED(void *argument);
+
+void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -611,6 +617,9 @@ void StartGreenLED(void *argument)
   }
   /* USER CODE END StartGreenLED */
 }
+  /* USER CODE END 5 */
+}
+
 /**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM1 interrupt took place, inside
