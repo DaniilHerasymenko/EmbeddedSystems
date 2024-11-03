@@ -95,3 +95,51 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2024-10-26 10:20:07.467
 !MESSAGE Indexed 'Lab3_PP-34_Daniil' (21 sources, 81 headers) in 3.75 sec: 4,430 declarations; 18,453 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0087%)
+!SESSION 2024-11-03 14:24:38.313 -----------------------------------------------
+eclipse.buildId=Version 1.16.0
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ru_RU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-11-03 14:24:55.477
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-03 14:24:55.481
+!MESSAGE Log4j2 initialized with config file C:\Users\Admin\Desktop\EmbeddedSystems\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-03 14:25:12.841
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2024-11-03 14:57:05.610 -----------------------------------------------
+eclipse.buildId=Version 1.16.0
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ru_RU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-11-03 14:57:19.672
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-03 14:57:19.677
+!MESSAGE Log4j2 initialized with config file C:\Users\Admin\Desktop\EmbeddedSystems\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-03 14:57:35.491
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2024-11-03 14:59:50.912 -----------------------------------------------
+eclipse.buildId=Version 1.16.0
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ru_RU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-11-03 15:00:06.747
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-03 15:00:06.750
+!MESSAGE Log4j2 initialized with config file C:\Users\Admin\Desktop\EmbeddedSystems\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-03 15:00:21.876
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-03 15:01:18.014
+!MESSAGE Indexed 'Lab3_PP-34_Daniil' (33 sources, 147 headers) in 9.86 sec: 15,111 declarations; 67,179 references; 1 unresolved inclusions; 202 syntax errors; 241 unresolved names (0.29%)
