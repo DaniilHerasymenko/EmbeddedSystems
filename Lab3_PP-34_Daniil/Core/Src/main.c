@@ -21,11 +21,8 @@
 #include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
-<<<<<<< HEAD
-=======
-#include "stdio.h"
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
 
 /* USER CODE END Includes */
 
@@ -45,11 +42,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-<<<<<<< HEAD
-=======
-
-UART_HandleTypeDef uart3;
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
+UART_HandleTypeDef huart3;
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
@@ -57,27 +50,28 @@ const osThreadAttr_t defaultTask_attributes = {
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
-<<<<<<< HEAD
-=======
-/* Definitions for threadColorLED */
+/* Definitions for threadRedLED */
 osThreadId_t threadRedLEDHandle;
 const osThreadAttr_t threadRedLED_attributes = {
   .name = "threadRedLED",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for threadOrangeLED */
 osThreadId_t threadOrangeLEDHandle;
 const osThreadAttr_t threadOrangeLED_attributes = {
   .name = "threadOrangeLED",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for threadGreenLED */
 osThreadId_t threadGreenLEDHandle;
 const osThreadAttr_t threadGreenLED_attributes = {
   .name = "threadGreenLED",
   .stack_size = 128 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for threadBlueLED */
 osThreadId_t threadBlueLEDHandle;
 const osThreadAttr_t threadBlueLED_attributes = {
   .name = "threadBlueLED",
@@ -92,26 +86,17 @@ const osSemaphoreAttr_t LEDBinarySemaphore_attributes = {
 /* USER CODE BEGIN PV */
 int16_t currentClick = 0;
 int16_t prevClick = 0;
-
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
-/* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-<<<<<<< HEAD
-=======
 static void MX_USART3_UART_Init(void);
 void StartDefaultTask(void *argument);
-void StartBlueLED(void *argument);
-void StartRedLED(void *argument);
-void StartOrangeLED(void *argument);
-void StartGreenLED(void *argument);
-
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
-void StartDefaultTask(void *argument);
+void StartTask02(void *argument);
+void StartTask03(void *argument);
+void StartTask04(void *argument);
+void StartTask05(void *argument);
 
 /* USER CODE BEGIN PFP */
 
@@ -119,15 +104,11 @@ void StartDefaultTask(void *argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-<<<<<<< HEAD
-
-=======
 int __io_putchar(int ch)
 {
-	HAL_UART_Transmit(&uart3, (uint8_t *)&ch, 1, 200);
+	HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 200);
 	return ch;
 }
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
 /* USER CODE END 0 */
 
 /**
@@ -159,6 +140,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -170,12 +152,9 @@ int main(void)
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
-<<<<<<< HEAD
-=======
-  /* Creation of LEDBinarySemaphore */
-  LEDBinarySemaphoreHandle = osSemaphoreNew(1, 0, &LEDBinarySemaphore_attributes);
-
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
+  /* Create the semaphores(s) */
+  /* creation of LEDBinarySemaphore */
+  LEDBinarySemaphoreHandle = osSemaphoreNew(1, 1, &LEDBinarySemaphore_attributes);
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -191,15 +170,19 @@ int main(void)
   /* Create the thread(s) */
   /* creation of defaultTask */
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
-<<<<<<< HEAD
 
-=======
-  /* creation of threadColorLED */
-  threadRedLEDHandle = osThreadNew(StartRedLED, NULL, &threadRedLED_attributes);
-  threadOrangeLEDHandle = osThreadNew(StartOrangeLED, NULL, &threadOrangeLED_attributes);
-  threadGreenLEDHandle = osThreadNew(StartGreenLED, NULL, &threadGreenLED_attributes);
-  threadBlueLEDHandle = osThreadNew(StartBlueLED, NULL, &threadBlueLED_attributes);
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
+  /* creation of threadRedLED */
+  threadRedLEDHandle = osThreadNew(StartTask02, NULL, &threadRedLED_attributes);
+
+  /* creation of threadOrangeLED */
+  threadOrangeLEDHandle = osThreadNew(StartTask03, NULL, &threadOrangeLED_attributes);
+
+  /* creation of threadGreenLED */
+  threadGreenLEDHandle = osThreadNew(StartTask04, NULL, &threadGreenLED_attributes);
+
+  /* creation of threadBlueLED */
+  threadBlueLEDHandle = osThreadNew(StartTask05, NULL, &threadBlueLED_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -269,9 +252,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
 }
-<<<<<<< HEAD
 
-=======
 /**
   * @brief USART3 Initialization Function
   * @param None
@@ -287,15 +268,15 @@ static void MX_USART3_UART_Init(void)
   /* USER CODE BEGIN USART3_Init 1 */
 
   /* USER CODE END USART3_Init 1 */
-  uart3.Instance = USART3;
-  uart3.Init.BaudRate = 115200;
-  uart3.Init.WordLength = UART_WORDLENGTH_8B;
-  uart3.Init.StopBits = UART_STOPBITS_1;
-  uart3.Init.Parity = UART_PARITY_NONE;
-  uart3.Init.Mode = UART_MODE_TX_RX;
-  uart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  uart3.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&uart3) != HAL_OK)
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 115200;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
   {
     Error_Handler();
   }
@@ -304,7 +285,7 @@ static void MX_USART3_UART_Init(void)
   /* USER CODE END USART3_Init 2 */
 
 }
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
+
 /**
   * @brief GPIO Initialization Function
   * @param None
@@ -448,9 +429,6 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-<<<<<<< HEAD
-
-=======
 static uint16_t delayLED = 195;
 uint16_t delayTable[3] = {500, 1000, 2000};
 uint8_t delayCounter = 0;
@@ -481,7 +459,6 @@ void SwitchDelay(void)
 	osDelay(delayLED);
 	printf("Changed LED delay to %d ms.\n\r", delayLED);
 }
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
 /* USER CODE END 4 */
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -494,169 +471,166 @@ void SwitchDelay(void)
 void StartDefaultTask(void *argument)
 {
   /* USER CODE BEGIN 5 */
+	void HandleSingleClick(void) {
+	    osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	    prevClick = currentClick;
+	}
+
+	void HandleDoubleClick(void) {
+	    SwitchDelay();
+	    doubleClick = 1;
+	}
+
+	void ResetLEDs(void) {
+	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+	    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
+	    prevClick = currentClick;
+    }
   /* Infinite loop */
   for(;;)
   {
-<<<<<<< HEAD
     osDelay(1);
-  }
+    if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
+    {
+       	currentClick = HAL_GetTick();
+       	osDelay(200);
+
+       	doubleClick = 0;
+       	for (uint8_t i = 0; i < 100; i++) {
+       		osDelay(1);
+       	    if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET) {
+       	    	HandleDoubleClick();
+       	        break;
+       	    }
+       	}
+
+       	if (doubleClick == 0) {
+       		if ((HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_12) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_13) |
+       			HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_15)) == 0) {
+       	        HandleSingleClick();
+       	    } else {
+       	    	osSemaphoreAcquire(LEDBinarySemaphoreHandle, 2000);
+       	        osDelay(50);
+       	        ResetLEDs();
+       	    }
+       	}
+    }
   /* USER CODE END 5 */
 }
-=======
-		osDelay(1);
-	    if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
-	    {
-	    	currentClick = HAL_GetTick();
-	    	osDelay(200);
 
-	    	uint8_t i = 0;
-	    	while (i != 100)
-	    	{
-	    		osDelay(1);
-	    		i++;
-	    		if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
-	    		{
-	    			SwitchDelay();
-	    			doubleClick = 1;
-	    		}
-	    	}
-	    	if ( ((HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_15) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_13) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_12) ) == 0 ) && (doubleClick == 0))
-	    	{
-	    		osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	    		prevClick = currentClick;
-	    	}
-
-	    	else if (HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_15) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_14) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_13) | HAL_GPIO_ReadPin(GPIOD, GPIO_PIN_12) && (doubleClick == 0))
-	    	{
-	    		osSemaphoreAcquire(LEDBinarySemaphoreHandle, 2000);
-	    		osDelay(50);
-	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
-	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
-	    		HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-	    		prevClick = currentClick;
-	    	}
-	    	doubleClick = 0;
-	    }
-  }
-  /* USER CODE END 5 */
-}
-/* USER CODE BEGIN Header_StartBlueLED */
-/**
-* @brief Function implementing the threadBlueLED thread.
-* @param argument: Not used
-* @retval None
-*/
-/* USER CODE END Header_StartBlueLED */
-void StartBlueLED(void *argument)
-{
-  /* USER CODE BEGIN StartBlueLED */
-  /* Infinite loop */
-	// LEDBinarySemaphoreHandle
-  for(;;)
-  {
-    osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
-    osDelay(delayLED);
-    osSemaphoreRelease(LEDBinarySemaphoreHandle);
-    osDelay(5);
-
-	osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
-
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
-  }
-  /* USER CODE END StartBlueLED */
-}
-
-/* USER CODE BEGIN Header_StartRedLED */
+/* USER CODE BEGIN Header_StartTask02 */
 /**
 * @brief Function implementing the threadRedLED thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartRedLED */
-void StartRedLED(void *argument)
+/* USER CODE END Header_StartTask02 */
+void StartTask02(void *argument)
 {
-  /* USER CODE BEGIN StartRedLED */
+  /* USER CODE BEGIN StartTask02 */
   /* Infinite loop */
   for(;;)
   {
-    osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
-	osDelay(delayLED);
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
+	  osDelay(1);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+	  osDelay(delayLED);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
 
-	osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
-
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
   }
-  /* USER CODE END StartRedLED */
+  /* USER CODE END StartTask02 */
 }
 
-/* USER CODE BEGIN Header_StartOrangeLED */
+/* USER CODE BEGIN Header_StartTask03 */
 /**
 * @brief Function implementing the threadOrangeLED thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartOrangeLED */
-void StartOrangeLED(void *argument)
+/* USER CODE END Header_StartTask03 */
+void StartTask03(void *argument)
 {
-  /* USER CODE BEGIN StartOrangeLED */
+  /* USER CODE BEGIN StartTask03 */
   /* Infinite loop */
   for(;;)
   {
-    osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-    osDelay(delayLED);
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
+	  osDelay(1);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
+	  osDelay(delayLED);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
 
-	osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
-
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
   }
-  /* USER CODE END StartOrangeLED */
+  /* USER CODE END StartTask03 */
 }
 
-/* USER CODE BEGIN Header_StartGreenLED */
+/* USER CODE BEGIN Header_StartTask04 */
 /**
 * @brief Function implementing the threadGreenLED thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_StartGreenLED */
-void StartGreenLED(void *argument)
+/* USER CODE END Header_StartTask04 */
+void StartTask04(void *argument)
 {
-  /* USER CODE BEGIN StartGreenLED */
+  /* USER CODE BEGIN StartTask04 */
   /* Infinite loop */
   for(;;)
   {
-    osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-    osDelay(delayLED);
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
+	  osDelay(1);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_SET);
+	  osDelay(delayLED);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
 
-	osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-	osDelay(delayLED);
-
-	osSemaphoreRelease(LEDBinarySemaphoreHandle);
-	osDelay(5);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_14, GPIO_PIN_RESET);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
   }
-  /* USER CODE END StartGreenLED */
+  /* USER CODE END StartTask04 */
 }
-  /* USER CODE END 5 */
+
+/* USER CODE BEGIN Header_StartTask05 */
+/**
+* @brief Function implementing the threadBlueLED thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_StartTask05 */
+void StartTask05(void *argument)
+{
+  /* USER CODE BEGIN StartTask05 */
+  /* Infinite loop */
+  for(;;)
+  {
+	  osDelay(1);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_SET);
+	  osDelay(delayLED);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
+
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_15, GPIO_PIN_RESET);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
+  }
+  /* USER CODE END StartTask05 */
 }
->>>>>>> bd2ca7417b02db939edfce1d865261b11947435b
 
 /**
   * @brief  Period elapsed callback in non blocking mode
