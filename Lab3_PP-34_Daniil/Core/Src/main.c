@@ -43,7 +43,6 @@
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart3;
-
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
@@ -156,7 +155,6 @@ int main(void)
   /* Create the semaphores(s) */
   /* creation of LEDBinarySemaphore */
   LEDBinarySemaphoreHandle = osSemaphoreNew(1, 1, &LEDBinarySemaphore_attributes);
-
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -535,17 +533,17 @@ void StartTask02(void *argument)
   /* Infinite loop */
   for(;;)
   {
-    osDelay(1);
-    osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-    osDelay(delayLED);
-    osSemaphoreRelease(LEDBinarySemaphoreHandle);
-    osDelay(5);
+	  osDelay(1);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+	  osDelay(delayLED);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
 
-    osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
-    HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
-    osSemaphoreRelease(LEDBinarySemaphoreHandle);
-    osDelay(5);
+	  osSemaphoreAcquire(LEDBinarySemaphoreHandle, osWaitForever);
+	  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_RESET);
+	  osSemaphoreRelease(LEDBinarySemaphoreHandle);
+	  osDelay(3);
   }
   /* USER CODE END StartTask02 */
 }
