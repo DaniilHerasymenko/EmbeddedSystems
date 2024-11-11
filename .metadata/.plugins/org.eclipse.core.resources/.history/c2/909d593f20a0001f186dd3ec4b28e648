@@ -1,0 +1,13 @@
+/*
+ * hw_delay.h
+ *
+ *  Created on: Nov 11, 2024
+ *      Author: Daniil
+ */
+
+#ifndef WH1602_HW_DELAY_H_
+#define WH1602_HW_DELAY_H_
+
+
+
+#endif /* WH1602_HW_DELAY_H_ */

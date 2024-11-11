@@ -1,0 +1,13 @@
+/*
+ * bme280_defs.h
+ *
+ *  Created on: Nov 11, 2024
+ *      Author: Daniil
+ */
+
+#ifndef BME280_BME280_DEFS_H_
+#define BME280_BME280_DEFS_H_
+
+
+
+#endif /* BME280_BME280_DEFS_H_ */

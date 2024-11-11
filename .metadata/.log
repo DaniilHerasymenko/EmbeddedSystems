@@ -1,0 +1,24 @@
+!SESSION 2024-11-11 12:54:30.941 -----------------------------------------------
+eclipse.buildId=Version 1.16.0
+java.version=17.0.11
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=ru_RU
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-11-11 12:54:58.358
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-11-11 12:54:58.361
+!MESSAGE Log4j2 initialized with config file C:\Users\Admin\Desktop\EmbeddedSystems\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-11-11 12:55:02.626
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-11 12:59:38.322
+!MESSAGE Indexed 'Lab4_BME280_Daniil' (21 sources, 81 headers) in 3.57 sec: 4,430 declarations; 18,453 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0087%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-11 13:05:32.582
+!MESSAGE Indexed 'LAB2_PP-34_Dmytro_Vochakovskyi' (24 sources, 123 headers) in 5.63 sec: 11,202 declarations; 38,584 references; 1 unresolved inclusions; 92 syntax errors; 240 unresolved names (0.48%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-11-11 14:01:37.881
+!MESSAGE Indexed 'Lab4_BME280_Daniil' (27 sources, 94 headers) in 1.87 sec: 7,201 declarations; 48,804 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0036%)
